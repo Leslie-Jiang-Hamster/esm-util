@@ -1,0 +1,21 @@
+Metadata-Version: 2.1
+Name: esm_util
+Version: 0.1.0
+Summary: An easy-to-use interface for esm2
+Author-email: Leslie Jiang <Leslie_Jiang@proton.me>
+Project-URL: Homepage, https://github.com/leslie-jiang-hamster/esm-util
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+
+# esm_util
+
+An easy-to-use interface for esm2
+
+# install
+
+```
+pip install esm_util
+```

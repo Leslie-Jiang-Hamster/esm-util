@@ -1,0 +1,17 @@
+[project]
+name = "esm_util"
+version = "0.1.0"
+authors = [
+  { name="Leslie Jiang", email="Leslie_Jiang@proton.me" },
+]
+description = "An easy-to-use interface for esm2"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/leslie-jiang-hamster/esm-util"
