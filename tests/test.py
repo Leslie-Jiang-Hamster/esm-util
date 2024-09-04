@@ -1,6 +1,3 @@
-import sys
-sys.path.append("../src")
-
 import esm_util
 
 # Prepare data (first 2 sequences from ESMStructuralSplitDataset superfamily / 4)
