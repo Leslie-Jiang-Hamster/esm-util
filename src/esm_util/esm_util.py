@@ -32,8 +32,7 @@ class ESMUtil:
         assert self.batch_labels is not None
         assert self.batch_strs is not None
         assert self.batch_tokens is not None
-        # Extract per-residue representations (on CPU)
-        # TODO: Use GPU if available
+        # Extract per-residue representations
         with torch.no_grad():
             results = self.model(self.batch_tokens, repr_layers=[self.n_layers], return_contacts=True)
         token_reperesentations = results["representations"][self.n_layers].to(self.device)
