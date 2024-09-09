@@ -11,7 +11,9 @@ class ESMUtil:
         # Load ESM-2 model
         # TODO: Replace this model by esm2_t48_15B_UR50D() in production
         # TODO: Remember to change the number of layers as well
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model, self.alphabet = esm.pretrained.esm2_t33_650M_UR50D()
+        self.model = self.model.to(self.device)
         self.n_layers = 33
         self.batch_converter = self.alphabet.get_batch_converter()
         # disables dropout for deterministic results
@@ -21,6 +23,7 @@ class ESMUtil:
     
     def load_data(self, data):
         self.batch_labels, self.batch_strs, self.batch_tokens = self.batch_converter(data)
+        self.batch_tokens = self.batch_tokens.to(self.device)
         # For each sequence in a batch, collect its non-padding tokens
         self.batch_lens = (self.batch_tokens != self.alphabet.padding_idx).sum(1)
         return self
@@ -33,7 +36,7 @@ class ESMUtil:
         # TODO: Use GPU if available
         with torch.no_grad():
             results = self.model(self.batch_tokens, repr_layers=[self.n_layers], return_contacts=True)
-        token_reperesentations = results["representations"][self.n_layers]
+        token_reperesentations = results["representations"][self.n_layers].to(self.device)
         return token_reperesentations
 
     def get_sequence_representations(self):
