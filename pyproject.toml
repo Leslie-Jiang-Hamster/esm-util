@@ -1,6 +1,6 @@
 [project]
 name = "esm_util"
-version = "0.1.7"
+version = "0.1.8"
 authors = [
   { name="Leslie Jiang", email="Leslie_Jiang@proton.me" },
 ]
