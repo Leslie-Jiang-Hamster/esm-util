@@ -1,5 +1,6 @@
 import torch
 import esm
+import re
 
 esm_singleton = None
 
@@ -22,6 +23,12 @@ class ESMUtil:
         esm_singleton = self
     
     def load_data(self, data):
+        for i in range(len(data)):
+            assert len(data[i]) == 2
+            assert type(data[i][1]) == str
+            data[i] = (data[i][0], re.sub(r'[^A-Z]', '', data[i][1]))
+            assert not '[' in data[i][1]
+            assert not ']' in data[i][1]
         self.batch_labels, self.batch_strs, self.batch_tokens = self.batch_converter(data)
         self.batch_tokens = self.batch_tokens.to(self.device)
         # For each sequence in a batch, collect its non-padding tokens
@@ -34,7 +41,7 @@ class ESMUtil:
         assert self.batch_tokens is not None
         # Extract per-residue representations
         with torch.no_grad():
-            results = self.model(self.batch_tokens, repr_layers=[self.n_layers], return_contacts=True)
+            results = self.model(self.batch_tokens, repr_layers=[self.n_layers], return_contacts=False)
         token_reperesentations = results["representations"][self.n_layers].to(self.device)
         return token_reperesentations
 
